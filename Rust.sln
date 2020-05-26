@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RustFarm", "RustFarm\RustFarm.csproj", "{EE9D6DC9-CF1C-4D06-90A9-1DCC90C2DCB1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Casino", "Casino\Casino.csproj", "{0661D664-7A61-4543-AD35-858AEF491051}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{99A613E4-E50A-4641-905D-0A3D6A49C5AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{EE9D6DC9-CF1C-4D06-90A9-1DCC90C2DCB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE9D6DC9-CF1C-4D06-90A9-1DCC90C2DCB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE9D6DC9-CF1C-4D06-90A9-1DCC90C2DCB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0661D664-7A61-4543-AD35-858AEF491051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0661D664-7A61-4543-AD35-858AEF491051}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0661D664-7A61-4543-AD35-858AEF491051}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0661D664-7A61-4543-AD35-858AEF491051}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99A613E4-E50A-4641-905D-0A3D6A49C5AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99A613E4-E50A-4641-905D-0A3D6A49C5AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99A613E4-E50A-4641-905D-0A3D6A49C5AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99A613E4-E50A-4641-905D-0A3D6A49C5AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

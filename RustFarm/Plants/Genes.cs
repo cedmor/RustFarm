@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RustFarm.RustPlants
+namespace Rust.Farm.RustPlants
 {
     class PlantEqualityComparer : IEqualityComparer<Plant>
     {
@@ -51,7 +51,7 @@ namespace RustFarm.RustPlants
         public List<Gene> genes = new List<Gene>();
         public List<Plant> breededFrom = new List<Plant>();
         public static int cpt = 1;
-        public int creationNumber = 0;
+        public int scanId = 0;
         public Genome genome;
 
         private Plant(Genome genome)
@@ -81,7 +81,7 @@ namespace RustFarm.RustPlants
 
         public Plant(string[,] plants) : this(CreateGeneListFromPlantStringArray(plants))
         {
-            creationNumber = cpt++;
+            scanId = cpt++;
             this.Print();
         }
         static List<Gene> CreateGeneListFromPlantStringArray(string[,] plants)
@@ -133,9 +133,9 @@ namespace RustFarm.RustPlants
         public void Print(string offset = "")
         {
             if (this.IsValid())
-                Console.WriteLine(offset + "Plant is Valid, creation number: " + this.creationNumber);
+                Console.WriteLine(offset + "Plant is Valid, creation number: " + this.scanId);
             else
-                Console.WriteLine(offset + "Plant is InValid, creation number: " + this.creationNumber);
+                Console.WriteLine(offset + "Plant is InValid, creation number: " + this.scanId);
 
             Console.Write(offset);
             foreach (var gene in this.genes)

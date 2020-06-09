@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RustFarm.RustPlants
+namespace Rust.Farm.RustPlants
 {
     public class Planter
     {
@@ -42,12 +42,9 @@ namespace RustFarm.RustPlants
     public class PlanterSlot
     {
         Planter planter;
-        Plant plant;
 
         List<PlanterSlot> adjacents;
         public int position;
-        bool planted = false;
-        bool breeded = false;
 
         public PlanterSlot(Planter planter, int position)
         {

@@ -1,22 +1,21 @@
-﻿using RustFarm.CodeHelper;
-using RustFarm.RustPlants;
+﻿using Rust.Farm.RustPlants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Rust.Utils;
 
-namespace RustFarm
+namespace Rust.Farm
 {
     public class Analyzer
     {
-
         public Analyzer()
         {
 
         }
 
-        public void Execute(List<Plant> plants, Plant wishPlant, int roundNb = 0, int previousCount = 0)
+        public void Execute(List<Plant> plants, Plant wishPlant)
         {
-            Plant wish = ExecuteRound(plants, wishPlant, roundNb, previousCount);
+            Plant wish = ExecuteRound(plants, wishPlant, 0, 0);
             if (wish.genome.GetDistanceFrom(wishPlant.genome) == 6)
                 PrintResult(wish);
         }
@@ -34,11 +33,18 @@ namespace RustFarm
 
         public Plant ExecuteRound<T>(IEnumerable<T> input, Plant wishPlant, int roundNb, int previousCount)
         {
-            //if (input.Count() == previousCount)
-            //{
-            //    Console.WriteLine("Could not find wish plant with this gene pool, please find other seeds.");
-            //    return new Plant("NOTVALID");
-            //}
+            if (input.Count() == previousCount)
+            {
+                Console.WriteLine("Could not find wish plant with this gene pool, please find other seeds.");
+                return new Plant("NOTVALID");
+            }
+
+            if (roundNb > 10)
+            {
+                Console.WriteLine("Stop!");
+                return new Plant("NOTVALID");
+            }
+
             Console.WriteLine("Starting Generation of breeding number: " + roundNb);
             Console.WriteLine("Number of plants in input: " + input.Count());
 

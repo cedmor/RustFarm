@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RustFarm.CodeHelper
+namespace Rust.Utils
 {
     public class PermuteUtils
     {
@@ -78,32 +78,6 @@ namespace RustFarm.CodeHelper
             {
                 if (index != indexToSkip) yield return item;
                 index += 1;
-            }
-        }
-    }
-
-    class AppTestPermutUtils
-    {
-        static void Main2(string[] args)
-        {
-            int[] intInput = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            ShowPermutations<int>(intInput, 2);
-
-            string[] stringInput = { "Hello", "World", "Foo" };
-            ShowPermutations<string>(stringInput, 3);
-
-        }
-
-        // Print out the permutations of the input 
-        static void ShowPermutations<T>(IEnumerable<T> input, int count)
-        {
-            foreach (IEnumerable<T> permutation in PermuteUtils.Permute<T>(input, count))
-            {
-                foreach (T i in permutation)
-                {
-                    Console.Write(" " + i);
-                }
-                Console.WriteLine();
             }
         }
     }

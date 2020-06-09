@@ -4,14 +4,15 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
 
-namespace RustFarm
+namespace Rust.Utils
 {
-    static class InterceptKeys
+    public static class InterceptKeys
     {
         public const int WH_KEYBOARD_LL = 13;
         public const int WM_KEYDOWN = 0x0100;
         public static LowLevelKeyboardProc _proc = HookCallback;
         public static IntPtr _hookID = IntPtr.Zero;
+        public static CallBack callback;
 
         //public static void Main()
         //{
@@ -25,6 +26,8 @@ namespace RustFarm
         //    UnhookWindowsHookEx(_hookID);
 
         //}
+
+        public delegate bool CallBack(Keys vkCode);
 
         public static IntPtr SetHook(LowLevelKeyboardProc proc)
         {
@@ -45,17 +48,7 @@ namespace RustFarm
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
             {
                 int vkCode = Marshal.ReadInt32(lParam);
-                //Console.WriteLine((Keys)vkCode);
-
-                if ((Keys)vkCode == Keys.B) Program.TakeCapture();
-                if ((Keys)vkCode == Keys.NumPad1) Program.Analysing();
-                if ((Keys)vkCode == Keys.NumPad3) Program.SavePlants();
-                if ((Keys)vkCode == Keys.NumPad5) Program.ResetPlants();
-                if ((Keys)vkCode == Keys.NumPad6) Program.LoadPlants();
-                if ((Keys)vkCode == Keys.NumPad7) Program.DisplayPlants();
-                if ((Keys)vkCode == Keys.NumPad0) Program.WriteInExcel();
-                if ((Keys)vkCode == Keys.NumPad9) System.Environment.Exit(1);
-
+                callback((Keys)vkCode);
             }
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
         }

@@ -10,6 +10,7 @@ namespace Casino
     {
         static void Main(string[] args)
         {
+            throw new NotImplementedException();
         }
     }
 }

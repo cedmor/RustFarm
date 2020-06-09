@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RustFarm.CodeHelper
+namespace Rust.Utils
 {
     public static class Serializing
     {

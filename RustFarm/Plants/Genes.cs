@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Rust.Farm.RustPlants
 {
@@ -59,7 +61,7 @@ namespace Rust.Farm.RustPlants
             this.genome = genome;
         }
 
-        Plant(List<Gene> genes) : this(CreateGenomeFromListOfGene(genes))
+        public Plant(List<Gene> genes) : this(CreateGenomeFromListOfGene(genes))
         {
             this.genes = genes;
         }
@@ -126,7 +128,7 @@ namespace Rust.Farm.RustPlants
             return true;
         }
 
-        int GetDistanceFrom(Plant plant)
+        public int GetDistanceFrom(Plant plant)
         {
             return this.genome.GetDistanceFrom(plant.genome);
         }
@@ -160,6 +162,38 @@ namespace Rust.Farm.RustPlants
                 Console.ForegroundColor = ConsoleColor.White;
             }
             Console.WriteLine();
+        }
+
+        public bool IsBetterThan(Plant plant)
+        {
+            bool proofItsBetter = false;
+            foreach (var gene in this.genes)
+            {
+                var correspondingGene = plant.genes.ElementAt(genes.IndexOf(gene));
+                if (!gene.Equals(correspondingGene))
+                {
+                    if (!gene.isDominant() && correspondingGene.isDominant())
+                    {
+                        proofItsBetter = true;
+                    }
+                    else return false;
+                }
+            }
+            return proofItsBetter;
+        }
+
+        public static List<Gene> GetRandomPlant(Random rng)
+        {
+            string W = "W", X = "X", Y = "Y", G = "G", H = "H";
+            string[] validAllele = { W, X, Y, G, H };
+
+            List<Gene> genes = new List<Gene>();
+            for (int i = 0; i < 6; i++)
+            {
+                var alleleIndex = rng.Next(0, validAllele.Length);
+                genes.Add(new Gene(validAllele[alleleIndex]));
+            }
+            return genes;
         }
     }
 
@@ -202,10 +236,10 @@ namespace Rust.Farm.RustPlants
 
         public int GetVirtualDistanceFrom(Genome genome)
         {
-            return this.Y * 2 + this.G * 2 + this.H - this.X - this.W;
-            //Math.Min(this.Y, genome.Y) +
-            //    Math.Min(this.G, genome.G) +
-            //    Math.Min(this.H, genome.H) - this.X - this.W;
+            //return this.Y * 2 + this.G * 2 + this.H - this.X - this.W;
+            return Math.Min(this.Y, genome.Y) * 2 +
+                Math.Min(this.G, genome.G) * 2 +
+                Math.Min(this.H, genome.H) * 2 - this.X - this.W;
         }
 
         public List<string> GetExistingAllele()
@@ -225,7 +259,7 @@ namespace Rust.Farm.RustPlants
     {
         public string value = string.Empty;
 
-        Gene(string allele)
+        public Gene(string allele)
         {
             if (Allele.IsValidAllele(allele)) { this.value = allele; }
         }
@@ -254,21 +288,33 @@ namespace Rust.Farm.RustPlants
             if (dominant.Length == 1) return dominant;
             if (dominant.Contains(Allele.X) && firstAllele == Allele.X) return Allele.X;
             if (dominant.Contains(Allele.W) && firstAllele == Allele.W) return Allele.W;
-            if (dominant.Contains(Allele.X) && dominant.Contains(Allele.W)) return new Random().Next(1) == 1 ? Allele.X : Allele.W;
+            if (dominant.Contains(Allele.X) && dominant.Contains(Allele.W)) return "R";
+            //if (dominant.Contains(Allele.X) && dominant.Contains(Allele.W)) return new Random().Next(1) == 1 ? Allele.X : Allele.W;
+
             if (dominant.Contains(Allele.X)) return Allele.X;
             if (dominant.Contains(Allele.W)) return Allele.W;
 
             if (dominant.Contains(Allele.Y) && firstAllele == Allele.Y) return Allele.Y;
             if (dominant.Contains(Allele.G) && firstAllele == Allele.G) return Allele.G;
             if (dominant.Contains(Allele.H) && firstAllele == Allele.H) return Allele.H;
-            if (dominant.Contains(Allele.Y) && dominant.Contains(Allele.G)) return new Random().Next(1) == 1 ? Allele.Y : Allele.G;
-            if (dominant.Contains(Allele.Y) && dominant.Contains(Allele.H)) return new Random().Next(1) == 1 ? Allele.Y : Allele.H;
-            if (dominant.Contains(Allele.G) && dominant.Contains(Allele.H)) return new Random().Next(1) == 1 ? Allele.G : Allele.H;
+            if (dominant.Contains(Allele.Y) && dominant.Contains(Allele.G)) return "R";
+            if (dominant.Contains(Allele.Y) && dominant.Contains(Allele.H)) return "R";
+            if (dominant.Contains(Allele.G) && dominant.Contains(Allele.H)) return "R";
+            //if (dominant.Contains(Allele.Y) && dominant.Contains(Allele.G)) return new Random().Next(1) == 1 ? Allele.Y : Allele.G;
+            //if (dominant.Contains(Allele.Y) && dominant.Contains(Allele.H)) return new Random().Next(1) == 1 ? Allele.Y : Allele.H;
+            //if (dominant.Contains(Allele.G) && dominant.Contains(Allele.H)) return new Random().Next(1) == 1 ? Allele.G : Allele.H;
             if (dominant.Contains(Allele.G) && dominant.Contains(Allele.H) && dominant.Contains(Allele.Y))
-                return new Random().Next(2) == 2 ? Allele.Y : new Random().Next(1) == 1 ? Allele.H : Allele.G;
+                return "R";
+            //if (dominant.Contains(Allele.G) && dominant.Contains(Allele.H) && dominant.Contains(Allele.Y))
+            //    return new Random().Next(2) == 2 ? Allele.Y : new Random().Next(1) == 1 ? Allele.H : Allele.G;
 
             Console.WriteLine("&");
-            return "Y";
+            return "P";
+        }
+
+        public bool isDominant()
+        {
+            return !(value == "Y" || value == "H" || value == "G");
         }
 
         public bool IsValid()
@@ -298,5 +344,4 @@ namespace Rust.Farm.RustPlants
             return pos1;
         }
     }
-
 }

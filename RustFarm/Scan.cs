@@ -27,6 +27,15 @@ namespace Rust.Farm
 
         public static void TakeCapture()
         {
+            //// WORKING EXAMPLE
+            //Rectangle rect = new Rectangle(startPosX, startPosY, cropWidth, cropHeight);
+            //Bitmap bmp = new Bitmap(rect.Width, rect.Height, PixelFormat.Format32bppArgb);
+            //Graphics g = Graphics.FromImage(bmp);
+            //g.CopyFromScreen(rect.Left, rect.Top, 0, 0, bmp.Size, CopyPixelOperation.SourceCopy);
+            //BitMapExtensions.DisplayBitMap(new Bitmap(bmp));
+
+
+
             ScanPlants.Scan(new Bitmap(new ScreenCapture().CaptureScreen()));
             return;
 
@@ -46,7 +55,7 @@ namespace Rust.Farm
                             statsMatrix[lines.IndexOf(line), cols.IndexOf(col)] = TransformCommonWrongValue(ExecuteOCR(singleStat));
                             isError(singleStat, statsMatrix[lines.IndexOf(line), cols.IndexOf(col)], 2);
                         }
-                        //singleStat.Save("ress/planted/" + " lin" + (lines.IndexOf(line) + 1) + "col" + (cols.IndexOf(col) + 1) + ".png");
+                        //singleStat.Save("ress /planted/" + " lin" + (lines.IndexOf(line) + 1) + "col" + (cols.IndexOf(col) + 1) + ".png");
                     }
                     else
                     {
@@ -268,6 +277,8 @@ namespace Rust.Farm
 
             List<Tuple<int[], string>> foundLettersFromPlant = CustomOCR.GetLettersCoordinates(a);
             List<Tuple<int[], string>> foundLettersFromInventory = CustomOCR.GetLettersCoordinates(b);
+
+            DebugFoundLetters(foundLettersFromPlant, a);
 
             if (foundLettersFromPlant.Count > 10 && foundLettersFromPlant.Count < 100)
             {

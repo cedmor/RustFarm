@@ -38,6 +38,9 @@
     <Reference Include="IronOcr, Version=4.4.0.21181, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
       <HintPath>..\packages\IronOcr.4.4.0\lib\net40\IronOcr.dll</HintPath>
     </Reference>
+    <Reference Include="Process.NET, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Process.NET.1.0.8\lib\Process.NET.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -71,6 +74,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\..\Overlay.NET\src\Overlay.NET\Overlay.NET.csproj">
+      <Project>{2d411ea5-bc00-4630-b25e-43c554323e72}</Project>
+      <Name>Overlay.NET</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
       <Project>{99a613e4-e50a-4641-905d-0a3d6a49c5ab}</Project>
       <Name>Utils</Name>

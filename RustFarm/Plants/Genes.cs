@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -257,7 +258,7 @@ namespace Rust.Farm.RustPlants
     [Serializable]
     public class Gene : IEquatable<Gene>
     {
-        public string value = string.Empty;
+        public string value = "R";
 
         public Gene(string allele)
         {
@@ -265,11 +266,39 @@ namespace Rust.Farm.RustPlants
         }
         public Gene(char allele) : this(allele.ToString()) { }
         public Gene(string pos1, string pos2) : this(Allele.GetMostRecentValidAllele(pos1, pos2)) { }
-        public Gene(List<Gene> genes) : this(FindDominantGene(genes)) { }
-        static string FindDominantGene(List<Gene> genes)
+        public Gene(List<Gene> genes) : this(FindDominantGene2(genes)) { }
+        static string FindDominantGene2(List<Gene> genes)
         {
             string firstAllele = genes.First().value;
-            //genes.RemoveAt(0);
+            genes.RemoveAt(0);
+            string dominant = string.Empty;
+
+            double W = genes.Count(gene => gene.value == Allele.W);
+            double X = genes.Count(gene => gene.value == Allele.X);
+            double Y = genes.Count(gene => gene.value == Allele.Y) * 0.6;
+            double G = genes.Count(gene => gene.value == Allele.G) * 0.6;
+            double H = genes.Count(gene => gene.value == Allele.H) * 0.6;
+            double max = Math.Max(W, Math.Max(X, Math.Max(Y, Math.Max(G, H))));
+            if (genes.Count(gene => gene.value == "R") > 0) return "R";
+            if (max < 1) return firstAllele;
+
+            if (max == W) dominant += "W";
+            if (max == X) dominant += "X";
+            if (max == Y) dominant += "Y";
+            if (max == G) dominant += "G";
+            if (max == H) dominant += "H";
+
+            if (dominant.Length == 1) return dominant;
+            return "R";
+
+        }
+        static string FindDominantGene(List<Gene> genes)
+        {
+            // TODO Rework avec nouvelle règle :
+            //Not in all cases. If the plants you are using crossbreeding for dont have at least 2 same green genes or one red on the specific position, then the gene from base plant is not replaced.
+
+            string firstAllele = genes.First().value;
+            genes.RemoveAt(0);
             string dominant = string.Empty;
 
             int W = genes.Count(gene => gene.value == Allele.W);
@@ -285,6 +314,9 @@ namespace Rust.Farm.RustPlants
             if (max == G) dominant += "G";
             if (max == H) dominant += "H";
 
+
+            if (dominant.Length == 1) return dominant;
+            // A valider : Est-ce que si on a un breeding avec 1X et 1Y, la première plante est utilisé dans le calcul du gène ?
             if (dominant.Length == 1) return dominant;
             if (dominant.Contains(Allele.X) && firstAllele == Allele.X) return Allele.X;
             if (dominant.Contains(Allele.W) && firstAllele == Allele.W) return Allele.W;

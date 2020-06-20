@@ -18,9 +18,14 @@ namespace ScanPlants
         public static int startPosX = 1562, startPosY = 488, cropWidth = 344, cropHeight = 77,
             screenSizeX = 2560, screenSizeY = 1440;
 
+        //// DEBUG ALL PICTURES
+        //public static int startPosX = 0, startPosY = 0, cropWidth = 2560, cropHeight = 1440,
+        //            screenSizeX = 2560, screenSizeY = 1440;
+
+
         public static int startPosX2 = 1061, startPosY2 = 400, cropWidth2 = 207, cropHeight2 = 26,
             screenSizeX2 = 2560, screenSizeY2 = 1440;
-
+        
 
         static void Main(string[] args)
         {
@@ -73,7 +78,7 @@ namespace ScanPlants
         static List<List<Tuple<int[], string>>> GetClustersFromLettersCoords(List<Tuple<int[], string>> lettersCoords)
         {
             List<List<Tuple<int[], string>>> cluster = new List<List<Tuple<int[], string>>>();
-            while (lettersCoords.Count != 0)
+            while (lettersCoords!= null && lettersCoords.Count != 0)
             {
                 var tempCluster = new List<Tuple<int[], string>>();
                 tempCluster.Add(lettersCoords.ElementAt(0));
@@ -93,8 +98,6 @@ namespace ScanPlants
             }
             return cluster;
         }
-
-
 
         static List<Tuple<int[], string>> GetLettersCoords(Bitmap image)
         {

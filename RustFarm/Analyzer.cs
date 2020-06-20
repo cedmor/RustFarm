@@ -16,38 +16,37 @@ namespace Rust.Farm
 
         public void Execute(List<Plant> plants, Plant wishPlant)
         {
-            do
+            //var rngnb = rng.Next(10, 100);
+            var rngnb = 1;
+
+            for (var j = 0; j < 1; j++)
             {
-                var rngnb = rng.Next(10, 100);
-                for (var j = 0; j < 10; j++)
+                var startingPlants = new List<Plant>();
+                for (int i = 0; i < 40; i++)
                 {
-                    var startingPlants = new List<Plant>();
-                    for (int i = 0; i < rngnb; i++)
-                    {
-                        Plant p = new Plant(Plant.GetRandomPlant(rng));
-                        startingPlants.Add(p);
-                    }
-                    var er = new ExecutionReport(startingPlants.Count);
-                    Plant wish = StartGeneration(startingPlants, new List<Plant>(), wishPlant, 1, er);
-
-                    //Plant wish = ExecuteRound(plants, wishPlant, 0, 0);
-                    //Plant wish = StartGeneration(plants, new List<Plant>(), wishPlant, 1);
-
-                    if (wish.genome.GetDistanceFrom(wishPlant.genome) == 6)
-                    {
-                        er.plantFound = true;
-                        PrintResult(wish);
-                    }
-                    else
-                    {
-                        er.plantFound = false;
-                        Console.WriteLine("404 - NotFound.");
-                    }
-                    //er.WriteReport(@"./execreport.txt");
-                    er.WriteReport(@"./execreport5.txt");
-
+                    Plant p = new Plant(Plant.GetRandomPlant(rng));
+                    startingPlants.Add(p);
                 }
-            } while (true);
+                var er = new ExecutionReport(startingPlants.Count);
+                Plant wish = StartGeneration(startingPlants, new List<Plant>(), wishPlant, 1, er);
+
+                //Plant wish = ExecuteRound(plants, wishPlant, 0, 0);
+                //Plant wish = StartGeneration(plants, new List<Plant>(), wishPlant, 1);
+
+                if (wish.genome.GetDistanceFrom(wishPlant.genome) == 6)
+                {
+                    er.plantFound = true;
+                    PrintResult(wish);
+                }
+                else
+                {
+                    er.plantFound = false;
+                    Console.WriteLine("404 - NotFound.");
+                }
+                //er.WriteReport(@"./execreport.txt");
+                er.WriteReport(@"./execreport5.txt");
+
+            }
         }
 
         public void PrintResult(Plant plant, string offset = "")
@@ -71,7 +70,7 @@ namespace Rust.Farm
             IEnumerable<T> initPlantsFromLastRound, Plant wishPlant, int genNumber, ExecutionReport er)
         {
             er.nbOfGenerationForFinding = genNumber;
-            if ((newPlantsFromLastRound.Count() == 0 && genNumber != 1) || genNumber > 1) { return new Plant("NotFound"); };
+            if ((newPlantsFromLastRound.Count() == 0 && genNumber != 1) || genNumber > 3) { return new Plant("NotFound"); };
 
             Console.WriteLine("\nStarting Generation of breeding - number: " + genNumber);
             List<Plant> plantPool = new List<Plant>(initPlantsFromLastRound.Count()
@@ -97,7 +96,7 @@ namespace Rust.Farm
 
             foreach (var currentPlant in (List<Plant>)newPlantsFromLastRound)
             {
-                for (var index = 1; index < 4; index++)
+                for (var index = 2; index < 5; index++)
                 {
                     foreach (IEnumerable<T> permutation in PermuteUtils.PermuteUnique<T>((IEnumerable<T>)plantPool, index))
                     {

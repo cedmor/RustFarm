@@ -14,6 +14,9 @@ using Rust.Farm.RustPlants;
 using System.Xml;
 using System.Xml.Serialization;
 using Rust.Utils;
+using Process.NET;
+using Process.NET.Memory;
+using Overlay.NET.Wpf;
 
 namespace Rust.Farm
 {
@@ -48,10 +51,21 @@ namespace Rust.Farm
                 case Keys.NumPad5: ResetPlants(); break;
                 case Keys.NumPad6: LoadPlants(); break;
                 case Keys.NumPad7: DisplayPlants(); break;
+                case Keys.NumPad8: LaunchOverlay(); break;
                 case Keys.NumPad9: System.Environment.Exit(1); break;
                 default:break;
             }
             return true;
+        }
+
+        public static void LaunchOverlay()
+        {
+            var processName = "rustclient";
+            var process = System.Diagnostics.Process.GetProcessesByName(processName).FirstOrDefault();
+            ProcessSharp processSharp = new ProcessSharp(process, MemoryType.Remote);
+            WpfOverlayPlugin _overlay = new WpfOverlayPlugin();
+
+
         }
 
         public static void Analysing()

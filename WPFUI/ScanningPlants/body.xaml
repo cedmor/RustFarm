@@ -1,0 +1,133 @@
+﻿<Page x:Class="WPFUI.ScanningPlants.body"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      Background="{DynamicResource MaterialDesignPaper}"
+      TextElement.FontWeight="Medium"
+      TextElement.FontSize="14"
+      FontFamily="{materialDesign:MaterialDesignFont}"
+      >
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"> 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" >Target: </Label>
+            <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <materialDesign:PackIcon Grid.Column="0" Kind="AlphaYCircle" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidBrush}" />
+                <materialDesign:PackIcon Grid.Column="1" Kind="AlphaYCircle" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidBrush}" />
+                <materialDesign:PackIcon Grid.Column="2" Kind="AlphaYCircle" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidBrush}" />
+                <materialDesign:PackIcon Grid.Column="3" Kind="AlphaYCircle" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidBrush}" />
+                <materialDesign:PackIcon Grid.Column="4" Kind="AlphaGCircle" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidBrush}" />
+                <materialDesign:PackIcon Grid.Column="5" Kind="AlphaGCircle" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidBrush}" />
+            </Grid>
+                
+            </Grid>
+        <Border Grid.Row="1" BorderBrush="{DynamicResource PrimaryHueMidBrush}" BorderThickness="2">
+
+            <ListBox SelectionMode="Multiple">
+                <ListBoxItem>
+                    <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" VerticalAlignment="Center">1: </Label>
+                        <materialDesign:PackIcon Grid.Column="1" Kind="AlphaYCircle" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidBrush}" />
+                        <materialDesign:PackIcon Grid.Column="2" Kind="AlphaYCircle" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidBrush}" />
+                        <materialDesign:PackIcon Grid.Column="3" Kind="AlphaGCircle" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidBrush}" />
+                        <materialDesign:PackIcon Grid.Column="4" Kind="AlphaHCircle" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidBrush}" />
+                        <materialDesign:PackIcon Grid.Column="5" Kind="AlphaWCircle" Height="30" Width="30" Foreground="{DynamicResource SecondaryHueMidBrush}" />
+                        <materialDesign:PackIcon Grid.Column="6" Kind="AlphaGCircle" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidBrush}" />
+                    </Grid>
+                    </ListBoxItem>
+                <ListBoxItem>Test2</ListBoxItem>
+                <ListBoxItem>Test3</ListBoxItem>
+                <ListBoxItem>Test4</ListBoxItem>
+                <ListBoxItem>Test5</ListBoxItem>
+                <ListBoxItem>Test6</ListBoxItem>
+                <ListBoxItem>Test7</ListBoxItem>
+                <ListBoxItem>Test8</ListBoxItem>
+                <ListBoxItem>Test9</ListBoxItem>
+                <ListBoxItem>Test</ListBoxItem>
+                <ListBoxItem>Test2</ListBoxItem>
+                <ListBoxItem>Test3</ListBoxItem>
+                <ListBoxItem>Test4</ListBoxItem>
+                <ListBoxItem>Test5</ListBoxItem>
+                <ListBoxItem>Test6</ListBoxItem>
+                <ListBoxItem>Test7</ListBoxItem>
+                <ListBoxItem>Test8</ListBoxItem>
+                <ListBoxItem>Test9</ListBoxItem>
+            </ListBox>
+        </Border>
+
+        <Grid Grid.Row="3" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <AccessText Grid.Row="0" HorizontalAlignment="Center"
+                        Grid.ColumnSpan="4">
+                    Press B to scan new plants.
+                </AccessText>
+                <Button Grid.Row="1" Grid.Column="0" 
+                    Name="BtnIconAdd" ToolTip="Icon"
+                    Content="{materialDesign:PackIcon Kind=PlusCircleOutline}"
+                    ></Button>
+                <Button Grid.Row="1" Grid.Column="1" 
+                    Name="BtnIconEdit" ToolTip="Icon"
+                    Content="{materialDesign:PackIcon Kind=CircleEditOutline}"
+                    ></Button>
+                <Button Grid.Row="1" Grid.Column="2" 
+                    Name="BtnIconDelete" ToolTip="Icon"
+                    Content="{materialDesign:PackIcon Kind=Delete}"
+                    ></Button>
+            <Button Grid.Row="1" Grid.Column="3" 
+                    Name="BtnIconTarget" ToolTip="Icon"
+                    Content="{materialDesign:PackIcon Kind=BullseyeArrow}"
+                    ></Button>
+        </Grid>
+        </Grid>
+</Page>

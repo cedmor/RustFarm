@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScanPlants", "ScanPlants\Sc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Overlay.NET", "..\Overlay.NET\src\Overlay.NET\Overlay.NET.csproj", "{2D411EA5-BC00-4630-B25E-43C554323E72}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFUI", "WPFUI\WPFUI.csproj", "{95ED5618-DFF5-4C7A-81C2-95319E0EFD83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{2D411EA5-BC00-4630-B25E-43C554323E72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D411EA5-BC00-4630-B25E-43C554323E72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D411EA5-BC00-4630-B25E-43C554323E72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95ED5618-DFF5-4C7A-81C2-95319E0EFD83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95ED5618-DFF5-4C7A-81C2-95319E0EFD83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95ED5618-DFF5-4C7A-81C2-95319E0EFD83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95ED5618-DFF5-4C7A-81C2-95319E0EFD83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

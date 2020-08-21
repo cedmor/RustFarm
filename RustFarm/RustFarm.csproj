@@ -75,10 +75,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\..\Overlay.NET\src\Overlay.NET\Overlay.NET.csproj">
-      <Project>{2d411ea5-bc00-4630-b25e-43c554323e72}</Project>
-      <Name>Overlay.NET</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
       <Project>{99a613e4-e50a-4641-905d-0a3d6a49c5ab}</Project>
       <Name>Utils</Name>

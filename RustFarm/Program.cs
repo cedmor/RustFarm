@@ -16,7 +16,6 @@ using System.Xml.Serialization;
 using Rust.Utils;
 using Process.NET;
 using Process.NET.Memory;
-using Overlay.NET.Wpf;
 
 namespace Rust.Farm
 {
@@ -40,12 +39,13 @@ namespace Rust.Farm
             Application.Run();
             InterceptKeys.UnhookWindowsHookEx(InterceptKeys._hookID);
         }
-
+            
         public static bool MySelector(Keys vkCode)
         {
             switch (vkCode)
             {
-                case Keys.B: Scan.TakeCapture(); break;
+                //case Keys.B: Scan.TakeCapture(); break;
+                case Keys.B: ScanPlants.Scan(new Bitmap(new ScreenCapture().CaptureScreen())); break;
                 case Keys.NumPad1: Analysing(); ; break;
                 case Keys.NumPad3: SavePlants(); break;
                 case Keys.NumPad5: ResetPlants(); break;
@@ -53,7 +53,7 @@ namespace Rust.Farm
                 case Keys.NumPad7: DisplayPlants(); break;
                 case Keys.NumPad8: LaunchOverlay(); break;
                 case Keys.NumPad9: System.Environment.Exit(1); break;
-                default:break;
+                default: break;
             }
             return true;
         }
@@ -63,7 +63,7 @@ namespace Rust.Farm
             var processName = "rustclient";
             var process = System.Diagnostics.Process.GetProcessesByName(processName).FirstOrDefault();
             ProcessSharp processSharp = new ProcessSharp(process, MemoryType.Remote);
-            WpfOverlayPlugin _overlay = new WpfOverlayPlugin();
+            //WpfOverlayPlugin _overlay = new WpfOverlayPlugin();
 
 
         }
@@ -75,7 +75,7 @@ namespace Rust.Farm
             Console.WriteLine();
 
             Analyzer analyzer = new Analyzer();
-            analyzer.Execute(Scan.plants, new Plant("GGYYYY"));
+            analyzer.Execute2(ScanPlants.plants, new Plant("GGYYYY"));
         }
 
         public static void ResetPlants()

@@ -1,13 +1,17 @@
-﻿using DocumentFormat.OpenXml.Bibliography;
+﻿using MaterialDesignThemes.Wpf;
+using MaterialDesignThemes.Wpf.Converters;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Media;
 
-namespace Rust.Farm.RustPlants
+namespace RustaFarmer
 {
     class PlantEqualityComparer : IEqualityComparer<Plant>
     {
@@ -59,8 +63,63 @@ namespace Rust.Farm.RustPlants
         public Genome genome;
         public int isValid = -1;
 
+        public int ScanId { get { return scanId; } set { if (ScanId != value) { scanId = value; } } }
+        public PackIconKind GetFirstGeneKind { get { return GetSpecificGeneKind(1); } }
+        public PackIconKind GetSecondGeneKind { get { return GetSpecificGeneKind(2); } }
+        public PackIconKind GetThirdGeneKind { get { return GetSpecificGeneKind(3); } }
+        public PackIconKind GetFourthGeneKind { get { return GetSpecificGeneKind(4); } }
+        public PackIconKind GetFifthGeneKind { get { return GetSpecificGeneKind(5); } }
+        public PackIconKind GetSixthGeneKind { get { return GetSpecificGeneKind(6); } }
+        public SolidColorBrush GetFirstGeneBrush { get { return GetSpecificGeneBrush(1); } }
+        public SolidColorBrush GetSecondGeneBrush { get { return GetSpecificGeneBrush(2); } }
+        public SolidColorBrush GetThirdGeneBrush { get { return GetSpecificGeneBrush(3); } }
+        public SolidColorBrush GetFourthGeneBrush { get { return GetSpecificGeneBrush(4); } }
+        public SolidColorBrush GetFifthGeneBrush { get { return GetSpecificGeneBrush(5); } }
+        public SolidColorBrush GetSixthGeneBrush { get { return GetSpecificGeneBrush(6); } }
+
+        private SolidColorBrush GetSpecificGeneBrush(int geneNumber)
+        {
+            if (IsValid())
+            {
+                switch (this.genes.ElementAt(geneNumber - 1).value.ToString())
+                {
+                    case "Y": return System.Windows.Application.Current.TryFindResource("PrimaryHueMidBrush") as SolidColorBrush;
+                    case "G": return System.Windows.Application.Current.TryFindResource("PrimaryHueMidBrush") as SolidColorBrush;
+                    case "H": return System.Windows.Application.Current.TryFindResource("PrimaryHueMidBrush") as SolidColorBrush;
+                    case "W": return System.Windows.Application.Current.TryFindResource("SecondaryHueMidBrush") as SolidColorBrush;
+                    case "X": return System.Windows.Application.Current.TryFindResource("SecondaryHueMidBrush") as SolidColorBrush;
+                    default:
+                        break;
+                }
+            }
+            return System.Windows.Application.Current.TryFindResource("PrimaryHueMidBrush") as SolidColorBrush;
+        }
+
+        private PackIconKind GetSpecificGeneKind(int geneNumber)
+        {
+            if (IsValid())
+            {
+                switch (this.genes.ElementAt(geneNumber - 1).value.ToString())
+                {
+                    case "Y": return PackIconKind.AlphaYCircle;
+                    case "G": return PackIconKind.AlphaGCircle;
+                    case "H": return PackIconKind.AlphaHCircle;
+                    case "W": return PackIconKind.AlphaWCircle;
+                    case "X": return PackIconKind.AlphaXCircle;
+                    default: return PackIconKind.Rabbit;
+                }
+            }
+            else
+            {
+                return PackIconKind.Rabbit;
+            }
+        }
+
+
+
         private Plant(Genome genome)
         {
+            scanId = 0;
             this.genome = genome;
         }
 
@@ -242,7 +301,7 @@ namespace Rust.Farm.RustPlants
 
         Genome(Plant plant) : this(plant.genes) { }
 
-        bool IsValid()
+        public bool IsValid()
         {
             return W + X + Y + G + H == 6;
         }

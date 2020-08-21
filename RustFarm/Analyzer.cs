@@ -7,6 +7,7 @@ using DocumentFormat.OpenXml.ExtendedProperties;
 using System.Threading;
 using System.Diagnostics;
 using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Drawing.Diagrams;
 
 namespace Rust.Farm
 {
@@ -28,26 +29,53 @@ namespace Rust.Farm
                     startingPlants.Add(p);
                 }
                 var er = new ExecutionReport(startingPlants.Count);
-                Plant wish = StartGeneration(startingPlants, new List<Plant>(), wishPlant, 1, er);
+                //Plant wish = StartGeneration(startingPlants, new List<Plant>(), wishPlant, 1, er);
 
                 //Plant wish = ExecuteRound(plants, wishPlant, 0, 0);
                 //Plant wish = StartGeneration(plants, new List<Plant>(), wishPlant, 1);
 
-                if (wish.genome.GetDistanceFrom(wishPlant.genome) == 6)
-                {
-                    er.plantFound = true;
-                    PrintResult(wish);
-                }
-                else
-                {
-                    er.plantFound = false;
-                    Console.WriteLine("404 - NotFound.");
-                }
-                //er.WriteReport(@"./execreport.txt");
-                er.WriteReport(@"./execreport5.txt");
+                //if (wish.genome.GetDistanceFrom(wishPlant.genome) == 6)
+                //{
+                //    er.plantFound = true;
+                //    PrintResult(wish);
+                //}
+                //else
+                //{
+                //    er.plantFound = false;
+                //    Console.WriteLine("404 - NotFound.");
+                //}
+                ////er.WriteReport(@"./execreport.txt");
+                //er.WriteReport(@"./execreport5.txt");
 
             }
         }
+
+        public void Execute2(List<Plant> plants, Plant wishPlant)
+        {
+            var er = new ExecutionReport(plants.Count);
+            List<Plant> breedResults = StartGeneration(plants, new List<Plant>(), wishPlant, 1, er);
+
+            breedResults.ForEach(b => { 
+                Console.WriteLine("\n\n" + "Breeding result : " + breedResults.IndexOf(b));
+                PrintResult(b);
+            });
+
+            //if (wish.genome.GetDistanceFrom(wishPlant.genome) == 6)
+            //{
+            //    er.plantFound = true;
+            //    PrintResult(wish);
+            //}
+            //else
+            //{
+            //    er.plantFound = false;
+            //    PrintResult(wish);
+            //    Console.WriteLine("404 - NotFound.");
+            //}
+            //er.WriteReport(@"./execreport.txt");
+            //er.WriteReport(@"./execreport5.txt");
+        }
+
+
 
         public void PrintResult(Plant plant, string offset = "")
         {
@@ -66,11 +94,27 @@ namespace Rust.Farm
             return wishPlants;
         }
 
-        public Plant StartGeneration<T>(IEnumerable<T> newPlantsFromLastRound,
+        public List<Plant> StartGeneration<T>(IEnumerable<T> newPlantsFromLastRound,
             IEnumerable<T> initPlantsFromLastRound, Plant wishPlant, int genNumber, ExecutionReport er)
         {
             er.nbOfGenerationForFinding = genNumber;
-            if ((newPlantsFromLastRound.Count() == 0 && genNumber != 1) || genNumber > 3) { return new Plant("NotFound"); };
+            if ((newPlantsFromLastRound.Count() == 0 && genNumber != 1) || genNumber > 2)
+            {
+                List<Plant> lp = new List<Plant>();
+                lp = ((List<Plant>)initPlantsFromLastRound)
+                    .OrderByDescending(p => p.genome.GetDistanceFrom(wishPlant.genome))
+                    .ThenBy(p => p.GetComplexity()).Take(5).ToList();
+
+                return lp;
+
+                //    Plant best = new Plant("WWWWWW");
+                //foreach (var plant in (List<Plant>)initPlantsFromLastRound)
+                //{
+                //    best = plant.genome.GetDistanceFrom(wishPlant.genome) > best.genome.GetDistanceFrom(wishPlant.genome) ?
+                //        best = plant : best;
+                //}
+                //return best;
+            };
 
             Console.WriteLine("\nStarting Generation of breeding - number: " + genNumber);
             List<Plant> plantPool = new List<Plant>(initPlantsFromLastRound.Count()
@@ -85,6 +129,7 @@ namespace Rust.Farm
             foreach (var newPlant in newPlantsFromLastRound)
             {
                 plantPool.RemoveAll(p => ((Plant)(object)newPlant).IsBetterThan(p));
+                plantPool.RemoveAll(p => !p.IsValid());
             }
             Console.WriteLine(countBeforeRemoving - plantPool.Count() + " plants have been removed.");
             ((List<Plant>)newPlantsFromLastRound).RemoveAll(p => !plantPool.Contains(p, new PlantEqualityComparer()));
@@ -110,11 +155,12 @@ namespace Rust.Farm
                         }
                         Plant newPlant = new Plant(permutedPlants);
 
-                        if (newPlant.genome.GetDistanceFrom(wishPlant.genome) == 6)
-                        {
-                            return newPlant;
-                        }
-                        else if (!plantPool.Contains(newPlant, new PlantEqualityComparer())
+                        //if (newPlant.genome.GetDistanceFrom(wishPlant.genome) == 6)
+                        //{
+                        //    return new List<Plant>().Add(newPlant);
+                        //}
+                        //else 
+                        if (!plantPool.Contains(newPlant, new PlantEqualityComparer())
                             && !newPlantPool.Contains(newPlant, new PlantEqualityComparer()))
                         {
                             newPlantPool.Add(newPlant);

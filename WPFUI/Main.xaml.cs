@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFUI.OverlayHook;
 
 namespace WPFUI
 {
@@ -29,6 +30,8 @@ namespace WPFUI
             var myFooter = new ScanningPlants.footer();
             this.footer.Navigate(myFooter);
 
+            var draxusPoint = new WpfOverlayExampleDemo();
+            draxusPoint.StartDemo(this);
 
         }
     }

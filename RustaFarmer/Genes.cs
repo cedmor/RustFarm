@@ -372,57 +372,6 @@ namespace RustaFarmer
             return "R";
 
         }
-        static string FindDominantGene(List<Gene> genes)
-        {
-            // TODO Rework avec nouvelle règle :
-            //Not in all cases. If the plants you are using crossbreeding for dont have at least 2 same green genes or one red on the specific position, then the gene from base plant is not replaced.
-
-            string firstAllele = genes.First().value;
-            genes.RemoveAt(0);
-            string dominant = string.Empty;
-
-            int W = genes.Count(gene => gene.value == Allele.W);
-            int X = genes.Count(gene => gene.value == Allele.X);
-            int Y = genes.Count(gene => gene.value == Allele.Y);
-            int G = genes.Count(gene => gene.value == Allele.G);
-            int H = genes.Count(gene => gene.value == Allele.H);
-            int max = Math.Max(W, Math.Max(X, Math.Max(Y, Math.Max(G, H))));
-
-            if (max == W) dominant += "W";
-            if (max == X) dominant += "X";
-            if (max == Y) dominant += "Y";
-            if (max == G) dominant += "G";
-            if (max == H) dominant += "H";
-
-
-            if (dominant.Length == 1) return dominant;
-            // A valider : Est-ce que si on a un breeding avec 1X et 1Y, la première plante est utilisé dans le calcul du gène ?
-            if (dominant.Length == 1) return dominant;
-            if (dominant.Contains(Allele.X) && firstAllele == Allele.X) return Allele.X;
-            if (dominant.Contains(Allele.W) && firstAllele == Allele.W) return Allele.W;
-            if (dominant.Contains(Allele.X) && dominant.Contains(Allele.W)) return "R";
-            //if (dominant.Contains(Allele.X) && dominant.Contains(Allele.W)) return new Random().Next(1) == 1 ? Allele.X : Allele.W;
-
-            if (dominant.Contains(Allele.X)) return Allele.X;
-            if (dominant.Contains(Allele.W)) return Allele.W;
-
-            if (dominant.Contains(Allele.Y) && firstAllele == Allele.Y) return Allele.Y;
-            if (dominant.Contains(Allele.G) && firstAllele == Allele.G) return Allele.G;
-            if (dominant.Contains(Allele.H) && firstAllele == Allele.H) return Allele.H;
-            if (dominant.Contains(Allele.Y) && dominant.Contains(Allele.G)) return "R";
-            if (dominant.Contains(Allele.Y) && dominant.Contains(Allele.H)) return "R";
-            if (dominant.Contains(Allele.G) && dominant.Contains(Allele.H)) return "R";
-            //if (dominant.Contains(Allele.Y) && dominant.Contains(Allele.G)) return new Random().Next(1) == 1 ? Allele.Y : Allele.G;
-            //if (dominant.Contains(Allele.Y) && dominant.Contains(Allele.H)) return new Random().Next(1) == 1 ? Allele.Y : Allele.H;
-            //if (dominant.Contains(Allele.G) && dominant.Contains(Allele.H)) return new Random().Next(1) == 1 ? Allele.G : Allele.H;
-            if (dominant.Contains(Allele.G) && dominant.Contains(Allele.H) && dominant.Contains(Allele.Y))
-                return "R";
-            //if (dominant.Contains(Allele.G) && dominant.Contains(Allele.H) && dominant.Contains(Allele.Y))
-            //    return new Random().Next(2) == 2 ? Allele.Y : new Random().Next(1) == 1 ? Allele.H : Allele.G;
-
-            Console.WriteLine("&");
-            return "P";
-        }
 
         public bool isDominant()
         {

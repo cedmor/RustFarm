@@ -9,13 +9,11 @@ using System.IO;
 using System.Diagnostics;
 using Process.NET;
 using System.Collections.ObjectModel;
-using RustaFarmer.ScanningPlants;
 
 namespace RustaFarmer
 {
     public class ScanPlants
     {
-        static string imgtestfolderpath = @"C:\Users\Windows\source\repos\RustFarm\ScanPlants\testimg";
         public static int startPosX = 1562, startPosY = 488, cropWidth = 344, cropHeight = 77,
             screenSizeX = 2560, screenSizeY = 1440;
 
@@ -29,7 +27,6 @@ namespace RustaFarmer
             List<Tuple<int[], string>> lettersCoords = GetLettersCoords(image);
             var scannedPlant = new Plant(GetPlantsStatsFromLettersCoords(lettersCoords));
             scannedPlant.scanId = Plant.cpt++;
-            scannedPlant.Print();
             plants.Add(scannedPlant);
         }
 
@@ -116,74 +113,18 @@ namespace RustaFarmer
             List<Tuple<int[], string>> foundLettersFromPlant = CustomOCR.GetLettersCoordinates(a);
             List<Tuple<int[], string>> foundLettersFromInventory = CustomOCR.GetLettersCoordinates(b);
 
-            //DebugFoundLetters(foundLettersFromPlant, a);
 
             if (foundLettersFromPlant.Count > 10 && foundLettersFromPlant.Count < 100)
             {
-                //DebugFoundLetters(foundLettersFromPlant, a);
                 return foundLettersFromPlant;
             }
             else if (foundLettersFromInventory.Count > 10 && foundLettersFromInventory.Count < 100)
             {
-                //DebugFoundLetters(foundLettersFromInventory, b);
                 return foundLettersFromInventory;
             }
             else
             {
                 return null;
-            }
-        }
-
-        static void DebugFoundLetters(List<Tuple<int[], string>> foundLetters, Bitmap image)
-        {
-            foundLetters.ForEach(l => { if (l.Item2 == "G") image.SetPixel(l.Item1[0], l.Item1[1], Color.Red); });
-            foundLetters.ForEach(l => { if (l.Item2 == "H") image.SetPixel(l.Item1[0], l.Item1[1], Color.Green); });
-            foundLetters.ForEach(l => { if (l.Item2 == "Y") image.SetPixel(l.Item1[0], l.Item1[1], Color.Blue); });
-            foundLetters.ForEach(l => { if (l.Item2 == "W") image.SetPixel(l.Item1[0], l.Item1[1], Color.Cyan); });
-            foundLetters.ForEach(l => { if (l.Item2 == "X") image.SetPixel(l.Item1[0], l.Item1[1], Color.Magenta); });
-            BitMapExtensions.DisplayBitMap(image);
-        }
-
-        static List<Bitmap> LoadImagesFromFolder(string imgtestfolderpath)
-        {
-            string[] fileEntries = Directory.GetFiles(imgtestfolderpath);
-            List<Bitmap> images = new List<Bitmap>();
-            foreach (string fileName in fileEntries)
-                images.Add(new Bitmap(fileName));
-            return images;
-        }
-
-    }
-    public static class BitMapExtensions
-    {
-        public static void DisplayBitMap(Bitmap bitmap)
-        {
-            var tempFileName = Path.GetTempFileName();
-            File.WriteAllBytes(tempFileName, bitmap.ToByteArray(ImageFormat.Bmp));
-
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-            var psi = new ProcessStartInfo(
-                "rundll32.exe",
-                String.Format(
-                    "\"{0}{1}\", ImageView_Fullscreen {2}",
-                    Environment.Is64BitOperatingSystem ?
-                        path.Replace(" (x86)", "") : path,
-                    @"\Windows Photo Viewer\PhotoViewer.dll",
-                    tempFileName)
-                );
-            psi.UseShellExecute = false;
-
-            var viewer = System.Diagnostics.Process.Start(psi);
-            viewer.EnableRaisingEvents = true;
-            viewer.Exited += (o, args) => { File.Delete(tempFileName); };
-        }
-
-        public static byte[] ToByteArray(this Image image, ImageFormat format)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                image.Save(ms, format);
-                return ms.ToArray();
             }
         }
     }

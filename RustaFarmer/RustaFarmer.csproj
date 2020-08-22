@@ -18,13 +18,4 @@
     </Reference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Page Update="ResultsList\footer.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="ResultsList\header.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-
 </Project>

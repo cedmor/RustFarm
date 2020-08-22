@@ -7,18 +7,6 @@
         Title="Rustafarmer" Height="800" Width="400" Loaded="Window_Loaded" Closing="Window_Closing" Topmost="true"
 >
     <Grid>
-        <Grid.ColumnDefinitions>
-            <!--<ColumnDefinition Width="20" />-->
-            <ColumnDefinition Width="*" />
-            <!--<ColumnDefinition Width="20" />-->
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Frame Name="header" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3"/>
-        <Frame Name="body" Grid.Row="1"  Grid.Column="1"/>
-        <Frame Name="footer" Grid.Row="2"  Grid.Column="0" Grid.ColumnSpan="3"/>
+        <Frame Name="MainPage" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

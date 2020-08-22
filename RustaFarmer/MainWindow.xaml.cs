@@ -19,7 +19,7 @@ using Process.NET.Memory;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Threading;
-using RustaFarmer.ScanningPlants;
+using RustaFarmer.Pages;
 
 namespace RustaFarmer
 {
@@ -28,22 +28,11 @@ namespace RustaFarmer
     /// </summary>
     public partial class MainWindow : Window
     {
-        header myHeader;
-        body myBody;
-        footer myFooter;
 
         public MainWindow()
         {
             InitializeComponent();
-            myHeader = new ScanningPlants.header();
-            this.header.Navigate(myHeader);
-
-            myBody = new ScanningPlants.body();
-            this.body.Navigate(myBody);
-
-            myFooter = new ScanningPlants.footer();
-            this.footer.Navigate(myFooter);
-
+            MainPage.Navigate(new Scanning());
         }
 
 

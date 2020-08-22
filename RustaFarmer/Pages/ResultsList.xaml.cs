@@ -33,7 +33,6 @@ namespace RustaFarmer.Pages
             backgroundWorker.WorkerReportsProgress = true;
             backgroundWorker.ProgressChanged += ProgressChanged;
             backgroundWorker.DoWork += DoWork;
-            // not required for this question, but is a helpful event to handle
             backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
         }
 
@@ -56,7 +55,7 @@ namespace RustaFarmer.Pages
         private void DoWork(object sender, DoWorkEventArgs e)
         {
             Analyzer analyzer = new Analyzer();
-            e.Result = analyzer.Execute(ScanPlants.plants.ToList(), new Plant("GGYYYY"), backgroundWorker);
+            e.Result = analyzer.Execute(ScanPlants.plants.ToList(), new Plant("GGYYYY"), backgroundWorker).resultPlants;
         }
 
         private void ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -79,10 +78,6 @@ namespace RustaFarmer.Pages
             if (resultsList.SelectedItem != null)
                 this.NavigationService.Navigate(new Result((Plant)resultsList.SelectedItem));
 
-            //if (resultList.SelectedItem != null)
-            //{
-            //    var index = resultList.ItemContainerGenerator.IndexFromContainer((Plant)resultList.SelectedItem);
-            //}
         }
     }
 }

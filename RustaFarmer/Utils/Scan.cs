@@ -26,7 +26,6 @@ namespace RustaFarmer
         {
             List<Tuple<int[], string>> lettersCoords = GetLettersCoords(image);
             var scannedPlant = new Plant(GetPlantsStatsFromLettersCoords(lettersCoords));
-            scannedPlant.scanId = Plant.cpt++;
             plants.Add(scannedPlant);
         }
 

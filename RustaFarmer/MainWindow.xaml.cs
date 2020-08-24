@@ -43,7 +43,6 @@ namespace RustaFarmer
             _listener.OnKeyPressed += _listener_OnKeyPressed;
 
             _listener.HookKeyboard();
-
         }
         private void _listener_OnKeyPressed(object sender, KeyPressedArgs e)
         {
@@ -65,5 +64,41 @@ namespace RustaFarmer
         {
             _listener.UnHookKeyboard();
         }
+
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+
+        }
+
+
+        #region Navigation
+        private void Menu_ScanPlants_Click(object sender, RoutedEventArgs e)
+        {
+            MainPage.NavigationService.Navigate(new Scanning());
+
+        }
+
+        private void Menu_ResultsList_Click(object sender, RoutedEventArgs e)
+        {
+            MainPage.NavigationService.Navigate(new ResultsList());
+
+        }
+
+        private void Menu_Result_Click(object sender, RoutedEventArgs e)
+        {
+            MainPage.NavigationService.Navigate(new Result());
+
+        }
+        #endregion
+
+        #region TopMenuButtons
+        private void CloseApp_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
+        #endregion
     }
 }

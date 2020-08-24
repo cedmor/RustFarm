@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -22,56 +18,18 @@ namespace RustaFarmer.Pages
     /// </summary>
     public partial class Scanning : Page
     {
-
         public Scanning()
         {
             InitializeComponent();
             plantList.ItemsSource = ScanPlants.plants;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ResultsList());
+        }
+
         private void BtnIconAdd_Click(object sender, RoutedEventArgs e)
-        {
-            PopUp_CreatePlant createPlantWindow = new PopUp_CreatePlant();
-            if (createPlantWindow.ShowDialog() == true)
-            {
-                if (createPlantWindow.createdPlantText.Text.Length == 6)
-                {
-                    ScanPlants.plants.Add(new Plant(createPlantWindow.createdPlantText.Text));
-                }
-            }
-        }
-
-        private void BtnIconEdit_Click(object sender, RoutedEventArgs e)
-        {
-            //if (plantList.SelectedItem != null)
-            //{
-            //    PopUp_CreatePlant createPlantWindow = new PopUp_CreatePlant();
-            //    string selectedPlant = string.Empty;
-            //    ((Plant)plantList.SelectedItem).genes.ForEach(g => selectedPlant += g.allele);
-
-            //    createPlantWindow.createdPlantText.Text = selectedPlant;
-            //    if (createPlantWindow.ShowDialog() == true)
-            //    {
-            //        if (createPlantWindow.createdPlantValue.Length == 6)
-            //        {
-            //            plantList.SelectedItem = new Plant(createPlantWindow.createdPlantValue);
-            //            //ScanPlants.plants.Add(new Plant(createPlantWindow.createdPlantValue));
-            //        }
-            //    }
-            //}
-        }
-
-        private void BtnIconDelete_Click(object sender, RoutedEventArgs e)
-        {
-            ScanPlants.plants.Remove((Plant)plantList.SelectedItem);
-        }
-
-        private void BtnIconTarget_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void BtnAdmin_Click(object sender, RoutedEventArgs e)
         {
             ScanPlants.plants.Add(new Plant("YXWHXG"));
             ScanPlants.plants.Add(new Plant("GGGHXY"));

@@ -24,7 +24,6 @@ namespace RustaFarmer
             if (Object.ReferenceEquals(b, a)) return true;
 
             int index = 0;
-            if (!a.isValid || !b.isValid) return false;
             foreach (var gene in a.genes)
             {
                 if (gene.allele != b.genes[index++].allele)
@@ -158,13 +157,36 @@ namespace RustaFarmer
             foreach (var g in genes)
             {
                 double value = g.isDominant ? 1 : 0.6;
-                if (breed.ContainsKey(g.allele)) { breed[g.allele] += value; }
+                //if (breed.ContainsKey(g.allele)) { breed[g.allele] += value; }
+                double outvalue = 0;
+                if (breed.TryGetValue(g.allele, out outvalue))
+                {
+                    breed[g.allele] = outvalue + value;
+                }
                 else { breed.Add(g.allele, value); }
             }
             var maxValueGene = breed.Max(x => x.Value);
             if (maxValueGene < 1) return firstAllele;
             else if (breed.Count(x => x.Value == maxValueGene) > 1) return Allele.R;
             else return breed.FirstOrDefault(x => x.Value == maxValueGene).Key;
+        }
+
+        public double GetScore()
+        {
+            double score = 0;
+            foreach (var g in genes)
+            {
+                score += g.allele switch
+                {
+                    Allele.Y => 1,
+                    Allele.G => 1,
+                    Allele.H => 0.5,
+                    Allele.X => 0,
+                    Allele.W => -0.2,
+                    _ => 1,
+                };
+            }
+            return score;
         }
 
         public int GetDistanceFrom(Plant plant)
@@ -208,6 +230,7 @@ namespace RustaFarmer
             else return 1;
         }
 
+
         public bool IsBetterThan(Plant plant)
         {
             bool proofItsBetter = false;
@@ -217,15 +240,25 @@ namespace RustaFarmer
                 if (!gene.Equals(correspondingGene))
                 {
                     if (!gene.isDominant && correspondingGene.isDominant)
-                    {
                         proofItsBetter = true;
-                    }
                     else return false;
                 }
             }
-            if (!proofItsBetter)
+            return proofItsBetter;
+        }
+
+
+        public bool IsBetterThanOrEqualTo(Plant plant)
+        {
+            bool proofItsBetter = true;
+            foreach (var gene in this.genes)
             {
-                // TODO: Traiter ici le cas ou les deux plantes sont les mêmes. Renvoie Faux en l'état.
+                var correspondingGene = plant.genes.ElementAt(genes.IndexOf(gene));
+                if (!gene.Equals(correspondingGene))
+                {
+                    if (!(!gene.isDominant && correspondingGene.isDominant))
+                        return false;
+                }
             }
             return proofItsBetter;
         }

@@ -15,89 +15,44 @@
       >
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="20" />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid Name="header" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="{materialDesign:PackIcon Kind=ChevronLeft}" Click="Button_Click"></Button>
 
-            <TextBlock Style="{DynamicResource MaterialDesignHeadline4TextBlock}" 
-                   Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-            Results List</TextBlock>
+        <Border Grid.Row="0" BorderBrush="{DynamicResource PrimaryHueMidBrush}" BorderThickness="2">
+            <ListBox Name="resultsList" SelectionMode="Single" SelectionChanged="resultList_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" VerticalAlignment="Center" Content="{Binding ScanId}"/>
+                            <materialDesign:PackIcon Grid.Column="1" Kind="{Binding GetFirstGeneKind}" Height="30" Width="30" Foreground="{Binding GetFirstGeneBrush}" />
+                            <materialDesign:PackIcon Grid.Column="2" Kind="{Binding GetSecondGeneKind}" Height="30" Width="30" Foreground="{Binding GetSecondGeneBrush}" />
+                            <materialDesign:PackIcon Grid.Column="3" Kind="{Binding GetThirdGeneKind}" Height="30" Width="30" Foreground="{Binding GetThirdGeneBrush}" />
+                            <materialDesign:PackIcon Grid.Column="4" Kind="{Binding GetFourthGeneKind}" Height="30" Width="30" Foreground="{Binding GetFourthGeneBrush}" />
+                            <materialDesign:PackIcon Grid.Column="5" Kind="{Binding GetFifthGeneKind}" Height="30" Width="30" Foreground="{Binding GetFifthGeneBrush}" />
+                            <materialDesign:PackIcon Grid.Column="6" Kind="{Binding GetSixthGeneKind}" Height="30" Width="30" Foreground="{Binding GetSixthGeneBrush}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
 
-            <!--<materialDesign:PackIcon Kind="ChevronRight" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />-->
+        <Grid Grid.Row="1" Margin="10">
+            <Button HorizontalAlignment="Center" Name="BtnIconAdd" ToolTip="Icon" Content="Launch analyzing" Click="BtnIconAdd_Click" Cursor="Hand"></Button>
+            <TextBlock Name="textBlock" HorizontalAlignment="Left" >0</TextBlock>
         </Grid>
-        <Grid Name="body" Grid.Row="1"  Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
 
-            <Border Grid.Row="1" BorderBrush="{DynamicResource PrimaryHueMidBrush}" BorderThickness="2">
-
-                <ListBox Name="resultsList" SelectionMode="Single" SelectionChanged="resultList_SelectionChanged">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" VerticalAlignment="Center" Content="{Binding ScanId}"/>
-                                <materialDesign:PackIcon Grid.Column="1" Kind="{Binding GetFirstGeneKind}" Height="30" Width="30" Foreground="{Binding GetFirstGeneBrush}" />
-                                <materialDesign:PackIcon Grid.Column="2" Kind="{Binding GetSecondGeneKind}" Height="30" Width="30" Foreground="{Binding GetSecondGeneBrush}" />
-                                <materialDesign:PackIcon Grid.Column="3" Kind="{Binding GetThirdGeneKind}" Height="30" Width="30" Foreground="{Binding GetThirdGeneBrush}" />
-                                <materialDesign:PackIcon Grid.Column="4" Kind="{Binding GetFourthGeneKind}" Height="30" Width="30" Foreground="{Binding GetFourthGeneBrush}" />
-                                <materialDesign:PackIcon Grid.Column="5" Kind="{Binding GetFifthGeneKind}" Height="30" Width="30" Foreground="{Binding GetFifthGeneBrush}" />
-                                <materialDesign:PackIcon Grid.Column="6" Kind="{Binding GetSixthGeneKind}" Height="30" Width="30" Foreground="{Binding GetSixthGeneBrush}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </Border>
-
-            <Grid Margin="10" Grid.Row="3" HorizontalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-
-                <Button Name="BtnIconAdd" ToolTip="Icon" Content="Launch analyzing" Click="BtnIconAdd_Click"></Button>
-            </Grid>
-        </Grid>
-        <Grid Name="footer" Grid.Row="2"  Grid.Column="0" Grid.ColumnSpan="3">
-            <TextBlock 
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center">
-            Press F3 to hide overlay.
-            </TextBlock>
-        </Grid>
-        <TextBlock Grid.Row="4" Name="textBlock" Grid.Column="0" Grid.ColumnSpan="3">TESST</TextBlock>
 
     </Grid>
 </Page>

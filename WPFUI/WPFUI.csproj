@@ -15,4 +15,28 @@
     <ProjectReference Include="..\..\Overlay.NET\src\Overlay.NET\Overlay.NET.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Result.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ResultsList.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Scanning.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Result.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ResultsList.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Scanning.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>

@@ -3,10 +3,10 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Scanning"       
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
       Background="{DynamicResource MaterialDesignPaper}"
       TextElement.FontWeight="Medium"
@@ -15,137 +15,80 @@
       >
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="20" />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Name="header" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
 
-            <TextBlock Style="{DynamicResource MaterialDesignHeadline4TextBlock}" 
-                   Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-            Plants Scanner</TextBlock>
+        <Border Grid.Row="0"  BorderBrush="{DynamicResource PrimaryHueMidBrush}" BorderThickness="2">
+            <ListBox Name="plantList" SelectionMode="Single">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" VerticalAlignment="Center" Content="{Binding ScanId}"/>
+                            <materialDesign:PackIcon Grid.Column="1" Kind="{Binding GetFirstGeneKind}" Height="30" Width="30" Foreground="{Binding GetFirstGeneBrush}" />
+                            <materialDesign:PackIcon Grid.Column="2" Kind="{Binding GetSecondGeneKind}" Height="30" Width="30" Foreground="{Binding GetSecondGeneBrush}" />
+                            <materialDesign:PackIcon Grid.Column="3" Kind="{Binding GetThirdGeneKind}" Height="30" Width="30" Foreground="{Binding GetThirdGeneBrush}" />
+                            <materialDesign:PackIcon Grid.Column="4" Kind="{Binding GetFourthGeneKind}" Height="30" Width="30" Foreground="{Binding GetFourthGeneBrush}" />
+                            <materialDesign:PackIcon Grid.Column="5" Kind="{Binding GetFifthGeneKind}" Height="30" Width="30" Foreground="{Binding GetFifthGeneBrush}" />
+                            <materialDesign:PackIcon Grid.Column="6" Kind="{Binding GetSixthGeneKind}" Height="30" Width="30" Foreground="{Binding GetSixthGeneBrush}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
 
-            <Button Grid.Column="1" Content="{materialDesign:PackIcon Kind=ChevronRight}" Click="Button_Click"></Button>
-            <!--<materialDesign:PackIcon Kind="ChevronRight" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />-->
-        </Grid>
-        <Grid Name="body" Grid.Row="1"  Grid.Column="1">
+        <Grid Grid.Row="1" Margin="10" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Grid Margin="5" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Label VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" >Target:</Label>
-                <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+            <AccessText  Grid.Row="0" HorizontalAlignment="Center" Grid.ColumnSpan="5">
+                Press B to scan new plants.
+            </AccessText>
 
-                    <materialDesign:PackIcon Grid.Column="0" Kind="AlphaYCircle" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidBrush}" />
-                    <materialDesign:PackIcon Grid.Column="1" Kind="AlphaYCircle" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidBrush}" />
-                    <materialDesign:PackIcon Grid.Column="2" Kind="AlphaYCircle" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidBrush}" />
-                    <materialDesign:PackIcon Grid.Column="3" Kind="AlphaYCircle" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidBrush}" />
-                    <materialDesign:PackIcon Grid.Column="4" Kind="AlphaGCircle" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidBrush}" />
-                    <materialDesign:PackIcon Grid.Column="5" Kind="AlphaGCircle" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidBrush}" />
-                </Grid>
-
-            </Grid>
-            <Border Grid.Row="1" BorderBrush="{DynamicResource PrimaryHueMidBrush}" BorderThickness="2">
-
-                <ListBox Name="plantList" SelectionMode="Multiple">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" VerticalAlignment="Center" Content="{Binding ScanId}"/>
-                                <materialDesign:PackIcon Grid.Column="1" Kind="{Binding GetFirstGeneKind}" Height="30" Width="30" Foreground="{Binding GetFirstGeneBrush}" />
-                                <materialDesign:PackIcon Grid.Column="2" Kind="{Binding GetSecondGeneKind}" Height="30" Width="30" Foreground="{Binding GetSecondGeneBrush}" />
-                                <materialDesign:PackIcon Grid.Column="3" Kind="{Binding GetThirdGeneKind}" Height="30" Width="30" Foreground="{Binding GetThirdGeneBrush}" />
-                                <materialDesign:PackIcon Grid.Column="4" Kind="{Binding GetFourthGeneKind}" Height="30" Width="30" Foreground="{Binding GetFourthGeneBrush}" />
-                                <materialDesign:PackIcon Grid.Column="5" Kind="{Binding GetFifthGeneKind}" Height="30" Width="30" Foreground="{Binding GetFifthGeneBrush}" />
-                                <materialDesign:PackIcon Grid.Column="6" Kind="{Binding GetSixthGeneKind}" Height="30" Width="30" Foreground="{Binding GetSixthGeneBrush}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </Border>
-
-            <Grid Margin="5" Grid.Row="3" HorizontalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-
-                <AccessText Grid.Row="0" HorizontalAlignment="Center"
-                        Grid.ColumnSpan="4">
-                    Press B to scan new plants.
-                </AccessText>
-                <Button Grid.Row="1" Grid.Column="0" 
+            <Button Margin="2" Grid.Row="1" Grid.Column="0" 
                     Name="BtnIconAdd" ToolTip="Icon"
-                    Content="{materialDesign:PackIcon Kind=PlusCircleOutline}" Click="BtnIconAdd_Click" Height="32" VerticalAlignment="Top"
+                    Content="{materialDesign:PackIcon Kind=PlusCircleOutline}" 
+                    Click="BtnIconAdd_Click" Cursor="Hand"
                     ></Button>
-                <Button Grid.Row="1" Grid.Column="1" 
+            <Button Margin="2" Grid.Row="1" Grid.Column="1" 
                     Name="BtnIconEdit" ToolTip="Icon"
-                    Content="{materialDesign:PackIcon Kind=CircleEditOutline}"
+                    Content="{materialDesign:PackIcon Kind=CircleEditOutline}" 
+                    Click="BtnIconEdit_Click" IsEnabled="False"
                     ></Button>
-                <Button Grid.Row="1" Grid.Column="2" 
+            <Button Margin="2" Grid.Row="1" Grid.Column="2" 
                     Name="BtnIconDelete" ToolTip="Icon"
-                    Content="{materialDesign:PackIcon Kind=Delete}"
+                    Content="{materialDesign:PackIcon Kind=Delete}" 
+                    Click="BtnIconDelete_Click"
                     ></Button>
-                <Button Grid.Row="1" Grid.Column="3" 
+            <Button Margin="2" Grid.Row="1" Grid.Column="3" 
                     Name="BtnIconTarget" ToolTip="Icon"
-                    Content="{materialDesign:PackIcon Kind=BullseyeArrow}"
+                    Content="{materialDesign:PackIcon Kind=BullseyeArrow}" 
+                    Click="BtnIconTarget_Click" IsEnabled="False"
                     ></Button>
-            </Grid>
+            <Button Margin="2" Grid.Row="1" Grid.Column="4" 
+                    Name="BtnAdmin" ToolTip="Icon"
+                    Content="{materialDesign:PackIcon Kind=AccountQuestion}" 
+                    Click="BtnAdmin_Click" 
+                    ></Button>
         </Grid>
-        <Grid Margin="5" Name="footer" Grid.Row="2"  Grid.Column="0" Grid.ColumnSpan="3">
-            <TextBlock 
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center">
-            Press F3 to hide overlay.
-            </TextBlock>
-        </Grid>
-
     </Grid>
 </Page>

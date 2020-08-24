@@ -19,18 +19,11 @@ namespace RustaFarmer.Pages
     /// </summary>
     public partial class Result : Page
     {
-        public static ObservableCollection<Plant> resultPlantList = new ObservableCollection<Plant>();
-        public static Plant resultPlant;
+        ObservableCollection<Plant> resultPlantList = new ObservableCollection<Plant>();
 
         public Result()
         {
             InitializeComponent();
-            result.ItemsSource = resultPlantList;
-
-            if (resultPlantList.Count == 0 && resultPlant != null)
-            {
-                AddPlantsToResultPlantList(resultPlant);
-            }
         }
 
         public void AddPlantsToResultPlantList(Plant plant, string offset = "")
@@ -41,6 +34,11 @@ namespace RustaFarmer.Pages
             {
                 AddPlantsToResultPlantList(p, offset);
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new ResultsList());
         }
     }
 }

@@ -3,10 +3,67 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{materialDesign:MaterialDesignFont}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
         Title="Rustafarmer" Height="800" Width="400" Loaded="Window_Loaded" Closing="Window_Closing" Topmost="true"
->
-    <Grid>
-        <Frame Name="MainPage" NavigationUIVisibility="Hidden"/>
-    </Grid>
+        Opacity="0.8" 
+        WindowStyle="None"
+        AllowsTransparency="False"
+        MouseDown="Grid_MouseDown">
+
+    <!--AllowsTransparency="True" WindowStyle="None"-->
+    <Border BorderBrush="#FF000000" BorderThickness="1" CornerRadius="8">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Name="TopMenu" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Margin="2" 
+                    Name="Burger" ToolTip="Icon"
+                    Style="{DynamicResource MaterialDesignToolButton}"
+                    Content="{materialDesign:PackIcon Kind=HamburgerMenu}"
+                    HorizontalAlignment="Right"></Button>
+
+                <TextBlock Grid.Column="1"
+                    Style="{DynamicResource MaterialDesignHeadline4TextBlock}" 
+                    VerticalAlignment="Center" HorizontalAlignment="Center" 
+                    >Rusta Farmer</TextBlock>
+
+                <Button Grid.Column="2" Margin="2" 
+                    Name="CloseApp" ToolTip="Icon"
+                    Style="{DynamicResource MaterialDesignToolButton}"
+                    Content="{materialDesign:PackIcon Kind=CloseBox}"
+                    HorizontalAlignment="Right" Click="CloseApp_Click"></Button>
+            </Grid>
+
+            <Grid Name="BottomMenu" Margin="10" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Margin="2" Name="Menu_ScanPlants" ToolTip="Icon" Content="Scan Plants" Focusable="True" Click="Menu_ScanPlants_Click"></Button>
+                <Button Grid.Column="1" Margin="2" Name="Menu_ResultsList" ToolTip="Icon" Content="Results List" Click="Menu_ResultsList_Click"></Button>
+                <Button Grid.Column="2" Margin="2" Name="Menu_Result" ToolTip="Icon" Content="Results" Click="Menu_Result_Click" ></Button>
+            </Grid>
+
+            <Frame Name="MainPage" Grid.Row="2" NavigationUIVisibility="Hidden"/>
+
+        </Grid>
+    </Border>
 </Window>
